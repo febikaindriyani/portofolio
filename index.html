@@ -93,11 +93,12 @@
     //         ├── 📄 background.jpg    <-- BACKGROUND UTAMA (Ukuran: 1920x1080 px, foto syuting/landscape)
     //         ├── 📄 profile.jpg       <-- FOTO PROFIL (Ukuran: 400x400 px, bentuk persegi 1:1)
     //         ├── 📄 project-1.jpg     <-- THUMBNAIL KARYA 1 (Ukuran: 800x450 px, landscape 16:9)
-    //         ├── 📄 project-3.jpg     <-- THUMBNAIL KARYA 3 (Ukuran: 800x450 px)
+    //         ├── 📄 project-2.jpg     <-- THUMBNAIL KARYA 2 (Ukuran: 800x450 px)
     //         ├── 📄 project-5.jpg     <-- THUMBNAIL KARYA 5 (Ukuran: 800x450 px)
     //         ├── 📄 project-8.jpg     <-- THUMBNAIL KARYA 8 (Ukuran: 800x450 px)
     //         ├── 📄 project-9.jpg     <-- THUMBNAIL KARYA 9 (Ukuran: 800x450 px)
-    //         └── 📄 project-10.jpg    <-- THUMBNAIL KARYA 10 (Ukuran: 800x450 px)
+    //         ├── 📄 project-10.jpg    <-- THUMBNAIL KARYA 10 (Ukuran: 800x450 px)
+    //         └── 📄 project-11.jpg    <-- THUMBNAIL KARYA 11 (Ukuran: 800x450 px)
     // =========================================================================
 
     // Kumpulan Icon SVG
@@ -196,11 +197,11 @@
       // Default mode disetel ke true (Mode Malam/Dark Mode)
       const [isDark, setIsDark] = useState(true);
 
-      // --- DATA PORTOFOLIO ---
+      // --- DATA PORTOFOLIO TERBARU ---
       const projects = [
         {
           id: 1,
-          title: "Produser TA Dokumenter Kronika Ampo Imogiri Dalam Simpang Rasa & Warisan",
+          title: "TA Dokumenter Kronika Ampo Imogiri Dalam Simpang Rasa & Warisan",
           date: "Sep – Okt 2025",
           role: "Produser",
           description: "Bertanggung jawab sebagai Produser dalam produksi dokumenter, mulai dari pengembangan ide hingga eksekusi produksi. Mengelola perencanaan produksi, termasuk penyusunan jadwal shooting, pengembangan konsep menjadi treatment, serta penyusunan anggaran produksi. Memastikan alur produksi berjalan efektif dan sesuai dengan visi kreatif yang telah ditetapkan.",
@@ -209,29 +210,34 @@
         },
         {
           id: 2,
-          title: "Video Dokumenter SMA IT Abu Bakar Jogja",
-          date: "Mei 2025",
-          role: "Tim Riset",
-          description: "Melakukan riset mendalam terkait topik dan objek dokumenter sebagai dasar pengembangan konsep. Mengumpulkan dan mengolah informasi untuk mendukung alur cerita yang informatif dan terstruktur. Menyusun daftar pertanyaan untuk narasumber guna menggali informasi yang relevan dan bernilai.",
-          links: [{ type: 'youtube', url: 'https://youtu.be/pWdZiWP96RA?si=8Ahhx4HbbsopdxK4', label: 'Tonton Video' }],
-          image: null
-        },
-        {
-          id: 3,
           title: "Magang BPSDMP Kominfo Surabaya",
           date: "Jan – Feb 2025",
           role: "Divisi Publikasi",
           description: "Bertanggung jawab dalam pembuatan konten publikasi digital, termasuk penulisan caption dan copywriting untuk kebutuhan media sosial dan video. Menyusun naskah singkat (script) untuk konten video serta berperan sebagai voice over dalam produksi konten. Berkontribusi dalam penyampaian informasi yang jelas, menarik, dan sesuai dengan kebutuhan komunikasi instansi.",
           links: [
             { type: 'drive', url: 'https://drive.google.com/file/d/1lVfTk2HNet_ehnWB_558VcM5sGMZmr_m/view?usp=drive_link', label: 'Tonton Video 1' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1pkRNXOpmN_aO-n4RhVKytRz_J3aUNZKq/view?usp=drive_link', label: 'Tonton Video 2' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1l-uRaiEWre4q-tMs9KKECZiKOTMmOSO1/view?usp=drive_link', label: 'Tonton Video 3' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1EQUCHGL4L3hHsXN6dVn6UNUiDDhsFiJH/view?usp=drive_link', label: 'Tonton Video 4' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1G5OjADOyu3ukwIRwXRuUXXKcPwtR3i46/view?usp=drive_link', label: 'Tonton Video 5' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1cOgJLnqJqPPDXJekmRJY7zcBxKSGDLWS/view?usp=drive_link', label: 'Tonton Video 6' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1ajIrhO5m5DDKEFTsFc1WP2Zkcgn5ceL8/view?usp=drive_link', label: 'Tonton Video 7' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFzbElsyk4N/?igsh=OTc1MHg2Nmo0amxo', label: 'Tonton Video 2' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFzFbdByu1v/?igsh=MTB6d3FhMzVpbWFlZw==', label: 'Tonton Video 3' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFu3NLsSgAx/?igsh=N2syMTRyMnNoZWkx', label: 'Tonton Video 4' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFodMJJvxj0/?igsh=M296ZnZza3JrdTg2', label: 'Tonton Video 5' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFnRS2CyDZM/?igsh=MXR4Y2Q3dm94Y2NzZw==', label: 'Tonton Video 6' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFkdVyOSuH3/?igsh=MWc4cGh4bmt1cG14YQ==', label: 'Tonton Video 7' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFkScsmyPkN/?igsh=cnU3b280b2hzZTA=', label: 'Tonton Video 8' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFfl4jVypz1/?igsh=ZmJrdzNmdG5sdm8=', label: 'Tonton Video 9' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFRoM13y8ok/?igsh=MThrY2lqMjk2M2FmNg==', label: 'Tonton Video 10' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFQBdgxSswc/?igsh=MWxpNDgyMHRvc291Mw==', label: 'Tonton Video 11' },
+            { type: 'instagram', url: 'https://www.instagram.com/reel/DFM3a4vyfMr/?igsh=NjNteWM4cGZzOTQy', label: 'Tonton Video 12' }
           ],
           image: "./assets/images/project-3.jpg"
+        },
+        {
+          id: 3,
+          title: "Video Dokumenter SMA IT Abu Bakar Jogja",
+          date: "Mei 2025",
+          role: "Tim Riset",
+          description: "Melakukan riset mendalam terkait topik dan objek dokumenter sebagai dasar pengembangan konsep.",
+          links: [{ type: 'youtube', url: 'https://youtu.be/pWdZiWP96RA?si=8Ahhx4HbbsopdxK4', label: 'Tonton Video' }],
+          image: null
         },
         {
           id: 4,
@@ -247,36 +253,41 @@
           title: "Talkshow Radio Visual",
           date: "Jul – Agus 2024",
           role: "Produser",
-          description: "Memimpin dan mengelola program talkshow, mulai dari perencanaan hingga pelaksanaan produksi. Bertanggung jawab dalam penyusunan laporan program serta administrasi dan persuratan yang berkaitan dengan kegiatan produksi. Mengkoordinasikan tim untuk memastikan jalannya program sesuai dengan konsep dan target yang ditetapkan.",
+          description: "Memimpin dan mengelola program talkshow, mulai dari perencanaan hingga pelaksanaan produksi. Bertanggung jawab dalam penyusunan laporan program serta administrasi dan persuratan yang berkaitan dengan kegiatan produksi. Mengkoordinasikan tim untuk memastikan jalannya program sesuai dengan konsep dan target yang ditetapkan. Mengumpulkan dan mengolah informasi untuk mendukung alur cerita yang informatif dan terstruktur. Menyusun daftar pertanyaan untuk narasumber guna menggali informasi yang relevan dan bernilai.",
           links: [
             { type: 'spotify', url: 'https://open.spotify.com/episode/0zGbJeXvGaqH1Si2ocY0az?si=jmFUCQEJTuCgxGsgETpntw', label: 'Dengarkan Podcast' },
-            { type: 'youtube', url: 'https://www.youtube.com/live/Q20-hiNPVes?si=i0NmSNAwEiVrp6ZF', label: 'Tonton Video' } 
+            { type: 'youtube', url: 'https://youtu.be/4YLXZZa5O0w', label: 'Tonton Video 1' },
+            { type: 'youtube', url: 'https://youtube.com/live/H92FoBGmIH0?feature=share', label: 'Tonton Video 2' } 
           ],
           image: "./assets/images/project-5.jpg"
         },
         {
           id: 6,
-          title: "News Bulletin TV",
-          date: "Mar – Mei 2024",
-          role: "News Anchor & Reporter",
-          description: "Riset berita aktual dan melakukan wawancara narasumber secara profesional. Membawakan program siaran langsung dengan artikulasi yang jelas dan pembawaan yang engaging.",
-          links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Video' }],
-          image: null
-        },
-        {
-          id: 7,
           title: "News Bulletin Radio Visual",
           date: "Jan – Mar 2024",
           role: "Program Director & Reporter",
           description: "Bertanggung jawab penuh atas penyusunan rundown dan alur program siaran. Melakukan reportase dengan kemampuan adaptasi dan situasi yang cepat.",
-          links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Video' }],
+          links: [
+            { type: 'youtube', url: 'https://www.youtube.com/live/Q20-hiNPVes?si=1aZclsik3miWhu5n', label: 'Tonton Video 1' },
+            { type: 'youtube', url: 'https://www.youtube.com/live/ANJrUbP_Z4Q?si=ZFUtz1lEFM3fgLTD', label: 'Tonton Video 2' },
+            { type: 'youtube', url: 'https://www.youtube.com/live/bVjI4GID0K0?si=9IiwfQn34zPJNvBs', label: 'Tonton Video 3' }
+          ],
+          image: null
+        },
+        {
+          id: 7,
+          title: "News Bulletin TV",
+          date: "Mar – Mei 2024",
+          role: "News Anchor & Reporter",
+          description: "Riset berita aktual dan melakukan wawancara narasumber secara profesional. Membawakan program siaran langsung dengan artikulasi yang jelas dan pembawaan yang engaging.",
+          links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=HGFrKTuMtIvZbwq5', label: 'Tonton Video' }],
           image: null
         },
         {
           id: 8,
           title: "Mobile Journalism",
           date: "2024",
-          role: "Reporter Mobile Jurnalism",
+          role: "Reporter Mobile Journalism",
           description: "Memproduksi dan menyiarkan laporan berita secara real-time melalui perangkat mobile.",
           links: [{ type: 'drive', url: 'https://drive.google.com/file/d/10C2w6Vx_59uXNNITrAThp4rt6WWmCTim/view?usp=drive_link', label: 'Tonton Video' }],
           image: "./assets/images/project-8.jpg"
@@ -292,7 +303,7 @@
         },
         {
           id: 10,
-          title: "Reportase Jogja Fashion Carnaval",
+          title: "Jogja Fashion Carnaval",
           date: "2023",
           role: "Reporter",
           description: "Menyajikan liputan visual mengenai eksibisi busana yang menarik dengan narasi yang dinamis bagi audiens.",
@@ -310,11 +321,12 @@
         }
       ];
 
-      // Semua icon drive disamakan menjadi icon YouTube (Play)
+      // Semua icon video disamakan menjadi icon YouTube (Play) untuk keseragaman
       const getIcon = (type) => {
         switch(type) {
           case 'youtube': 
           case 'drive': 
+          case 'instagram':
             return <IconYoutube />;
           case 'spotify': 
             return <IconSpotify />;
@@ -328,6 +340,7 @@
         switch(type) {
           case 'youtube': 
           case 'drive': 
+          case 'instagram':
             return 'bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-600 hover:text-white';
           case 'spotify': 
             return 'bg-green-500/10 text-green-700 border-green-500/20 hover:bg-green-600 hover:text-white';
@@ -340,6 +353,7 @@
         switch(type) {
           case 'youtube': 
           case 'drive': 
+          case 'instagram':
             return 'bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-600 hover:text-white';
           case 'spotify': 
             return 'bg-green-500/10 text-green-400 border-green-500/30 hover:bg-green-600 hover:text-white';
