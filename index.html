@@ -25,25 +25,49 @@
       animation: fadeInUp 0.8s ease-out forwards;
     }
 
-    /* --- EFEK LIQUID GLASS (KACA) --- */
+    /* Animasi Glowing Blobs (Cahaya melayang) */
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+      animation: blob 7s infinite;
+    }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animation-delay-4000 { animation-delay: 4s; }
+
+    /* --- EFEK LIQUID GLASS (KACA) YANG DISEMPURNAKAN KONTRASTNYA --- */
     .glass-light {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      background: rgba(255, 255, 255, 0.75); /* Dipertebal agar teks gelap terbaca jelas */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.15); /* Bayangan lembut */
     }
     
     .glass-dark {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.3));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      background: rgba(15, 23, 42, 0.80); /* Dipertebal agar teks putih lebih kontras */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Bayangan tegas */
+    }
+
+    /* Efek hover kaca mengkilap */
+    .glass-hover-effect:hover {
+      background: rgba(255, 255, 255, 0.90);
+      border: 1px solid rgba(255, 255, 255, 1);
+      transform: translateY(-5px);
+    }
+    .dark .glass-hover-effect:hover {
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden">
   
   <div id="root"></div>
 
@@ -53,13 +77,11 @@
     // =========================================================================
     // 📁 PANDUAN STRUKTUR FOLDER & GAMBAR UNTUK GITHUB PAGES
     // =========================================================================
-    // Buat folder di komputer Anda persis di sebelah file index.html ini 
-    // dengan susunan seperti ini:
-    //
     // 📁 (Folder Utama Website Anda)
     // ├── 📄 index.html                <-- (File ini)
     // └── 📁 assets
     //     └── 📁 images
+    //         ├── 📄 background.jpg    <-- BACKGROUND UTAMA (Ukuran: 1920x1080 px, foto syuting/landscape)
     //         ├── 📄 profile.jpg       <-- FOTO PROFIL (Ukuran: 400x400 px, bentuk persegi 1:1)
     //         ├── 📄 project-1.jpg     <-- THUMBNAIL KARYA 1 (Ukuran: 800x450 px, landscape 16:9)
     //         ├── 📄 project-3.jpg     <-- THUMBNAIL KARYA 3 (Ukuran: 800x450 px)
@@ -67,27 +89,25 @@
     //         ├── 📄 project-8.jpg     <-- THUMBNAIL KARYA 8 (Ukuran: 800x450 px)
     //         ├── 📄 project-9.jpg     <-- THUMBNAIL KARYA 9 (Ukuran: 800x450 px)
     //         └── 📄 project-10.jpg    <-- THUMBNAIL KARYA 10 (Ukuran: 800x450 px)
-    //
-    // Catatan: Anda tidak wajib membuat gambar untuk karya yang berupa link YouTube
-    // karena video YouTube akan otomatis muncul sebagai iframe.
     // =========================================================================
 
+    // Kumpulan Icon SVG
     const IconSun = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>;
     const IconMoon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>;
     const IconMapPin = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
     const IconChevronDown = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"></path></svg>;
     const IconYoutube = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M2.5 7.1C2.6 5.3 4 3.9 5.8 3.8 9.9 3.5 14.1 3.5 18.2 3.8 20 3.9 21.4 5.3 21.5 7.1 21.8 10.4 21.8 13.6 21.5 16.9 21.4 18.7 20 20.1 18.2 20.2 14.1 20.5 9.9 20.5 5.8 20.2 4 20.1 2.6 18.7 2.5 16.9 2.2 13.6 2.2 10.4 2.5 7.1Z"></path><path d="m10 15 5-3-5-3v6Z"></path></svg>;
-    const IconDrive = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>;
+    const IconDrive = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>;
     const IconSpotify = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><circle cx="12" cy="12" r="10"></circle><path d="M8 11.85c.8-.4 1.9-.6 3.1-.6s2.3.2 3.1.6"></path><path d="M7 15.35c1-.5 2.4-.8 3.8-.8s2.8.3 3.8.8"></path><path d="M9 8.35c.6-.3 1.4-.5 2.2-.5s1.6.2 2.2.5"></path></svg>;
-    const IconExternalLink = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>;
     const IconLinkedin = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
     const IconMail = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
     const IconPhone = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>;
 
-    // --- KOMPONEN BACKGROUND PARTIKEL ---
-    const BackgroundParticles = () => {
+    // --- KOMPONEN BACKGROUND (IMAGE + ANIMASI MERIAH) ---
+    const BackgroundVisuals = ({ isDark }) => {
       const canvasRef = useRef(null);
 
+      // Animasi Partikel Jatuh
       useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
@@ -102,14 +122,14 @@
         window.addEventListener('resize', setCanvasSize);
 
         const particles = [];
-        for (let i = 0; i < 70; i++) {
+        for (let i = 0; i < 50; i++) {
           particles.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             size: Math.random() * 2.5 + 0.5,
             speedY: Math.random() * 1 + 0.2,
             speedX: (Math.random() - 0.5) * 0.5,
-            opacity: Math.random() * 0.4 + 0.1
+            opacity: Math.random() * 0.5 + 0.2
           });
         }
 
@@ -122,7 +142,8 @@
               p.y = 0 - p.size;
               p.x = Math.random() * canvas.width;
             }
-            ctx.fillStyle = `rgba(79, 70, 229, ${p.opacity})`;
+            // Partikel akan putih di dark mode, dan indigo/ungu di light mode
+            ctx.fillStyle = isDark ? `rgba(255, 255, 255, ${p.opacity})` : `rgba(79, 70, 229, ${p.opacity})`;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fill();
@@ -134,14 +155,40 @@
           window.removeEventListener('resize', setCanvasSize);
           cancelAnimationFrame(animationFrameId);
         };
-      }, []);
+      }, [isDark]);
 
-      return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />;
+      return (
+        // PERBAIKAN: Latar belakang utama (container) akan berubah putih di Day Mode
+        <div className={`fixed inset-0 z-0 overflow-hidden transition-colors duration-700 ${isDark ? 'bg-slate-950' : 'bg-slate-50'}`}>
+          
+          {/* Gambar Latar Belakang (Syuting/Kamera) */}
+          <img 
+            src="./assets/images/background.jpg" 
+            alt="Background" 
+            // PERBAIKAN: Di mode siang, opacity gambar dikurangi tajam agar tidak mengganggu tulisan
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isDark ? 'opacity-30' : 'opacity-10'}`}
+            onError={(e) => {
+              e.target.onerror = null;
+              // Placeholder gambar syuting film jika lokal tidak ada
+              e.target.src = "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1920&auto=format&fit=crop"; 
+            }}
+          />
+          
+          {/* Animasi Cahaya (Glowing Blobs) */}
+          <div className={`absolute top-[-10%] left-[-10%] w-96 h-96 rounded-full mix-blend-multiply filter blur-[100px] animate-blob ${isDark ? 'bg-indigo-500/40' : 'bg-indigo-300/60'}`}></div>
+          <div className={`absolute top-[20%] right-[-10%] w-96 h-96 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 ${isDark ? 'bg-purple-500/40' : 'bg-purple-300/60'}`}></div>
+          <div className={`absolute bottom-[-20%] left-[20%] w-96 h-96 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-4000 ${isDark ? 'bg-pink-500/40' : 'bg-pink-300/60'}`}></div>
+
+          {/* Partikel Canvas */}
+          <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />
+        </div>
+      );
     };
 
     // --- KOMPONEN UTAMA (PORTFOLIO) ---
     const Portfolio = () => {
-      const [isDark, setIsDark] = useState(false);
+      // PERUBAHAN: Default mode disetel ke true (Mode Malam/Dark Mode)
+      const [isDark, setIsDark] = useState(true);
 
       // --- DATA PORTOFOLIO ---
       const projects = [
@@ -151,8 +198,8 @@
           date: "Sep – Okt 2025",
           role: "Produser",
           description: "Membuat schedule shooting dari pra hingga post produksi, mengembangkan ide hingga menjadi treatment, membuat anggaran produksi.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1BpIWJLaIlKZrzag7vMLstPSd_WyIDA54/view?usp=drive_link', label: 'Lihat Dokumen' }],
-          image: "./assets/images/project-1.jpg" // Target file gambar (800x450px)
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1BpIWJLaIlKZrzag7vMLstPSd_WyIDA54/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          image: "./assets/images/project-1.jpg"
         },
         {
           id: 2,
@@ -161,7 +208,7 @@
           role: "Tim Riset",
           description: "Mencari informasi tentang SMA IT Abu Bakar untuk konsep dokumenter, menyusun pertanyaan untuk narasumber.",
           links: [{ type: 'youtube', url: 'https://youtu.be/pWdZiWP96RA?si=8Ahhx4HbbsopdxK4', label: 'Tonton Video' }],
-          image: null // YouTube iframe akan muncul, tidak perlu gambar
+          image: null
         },
         {
           id: 3,
@@ -170,15 +217,15 @@
           role: "Divisi Publikasi",
           description: "Membuat caption, membuat kalimat pendek untuk video, menjadi voice over.",
           links: [
-            { type: 'drive', url: 'https://drive.google.com/file/d/1lVfTk2HNet_ehnWB_558VcM5sGMZmr_m/view?usp=drive_link', label: 'Karya 1' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1pkRNXOpmN_aO-n4RhVKytRz_J3aUNZKq/view?usp=drive_link', label: 'Karya 2' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1l-uRaiEWre4q-tMs9KKECZiKOTMmOSO1/view?usp=drive_link', label: 'Karya 3' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1EQUCHGL4L3hHsXN6dVn6UNUiDDhsFiJH/view?usp=drive_link', label: 'Karya 4' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1G5OjADOyu3ukwIRwXRuUXXKcPwtR3i46/view?usp=drive_link', label: 'Karya 5' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1cOgJLnqJqPPDXJekmRJY7zcBxKSGDLWS/view?usp=drive_link', label: 'Karya 6' },
-            { type: 'drive', url: 'https://drive.google.com/file/d/1ajIrhO5m5DDKEFTsFc1WP2Zkcgn5ceL8/view?usp=drive_link', label: 'Karya 7' },
-          ],
-          image: "./assets/images/project-3.jpg" // Target file gambar (800x450px)
+            { type: 'drive', url: 'https://drive.google.com/file/d/1lVfTk2HNet_ehnWB_558VcM5sGMZmr_m/view?usp=drive_link', label: 'Tonton Video 1' },
+            { type: 'drive', url: 'https://drive.google.com/file/d/1pkRNXOpmN_aO-n4RhVKytRz_J3aUNZKq/view?usp=drive_link', label: 'Tonton Video 2' },
+            { type: 'drive', url: 'https://drive.google.com/file/d/1l-uRaiEWre4q-tMs9KKECZiKOTMmOSO1/view?usp=drive_link', label: 'Tonton Video 3' },
+            { type: 'drive', url: 'https://drive.google.com/file/d/1EQUCHGL4L3hHsXN6dVn6UNUiDDhsFiJH/view?usp=drive_link', label: 'Tonton Video 4' },
+            { type: 'drive', url: 'https://drive.google.com/file/d/1G5OjADOyu3ukwIRwXRuUXXKcPwtR3i46/view?usp=drive_link', label: 'Tonton Video 5' },
+            { type: 'drive', url: 'https://drive.google.com/file/d/1cOgJLnqJqPPDXJekmRJY7zcBxKSGDLWS/view?usp=drive_link', label: 'Tonton Video 6' },
+            { type: 'drive', url: 'https://drive.google.com/file/d/1ajIrhO5m5DDKEFTsFc1WP2Zkcgn5ceL8/view?usp=drive_link', label: 'Tonton Video 7' },
+          ], // Label diseragamkan
+          image: "./assets/images/project-3.jpg"
         },
         {
           id: 4,
@@ -186,8 +233,8 @@
           date: "Sep 2024 – Okt 2024",
           role: "Crew Creative",
           description: "Bertanggungjawab seluruh properti serta konten yang diperlukan selama produksi talkshow.",
-          links: [{ type: 'youtube', url: 'https://youtube.com/live/kb5H9B29sFA?feature=share', label: 'Tonton Live' }],
-          image: null // YouTube iframe akan muncul
+          links: [{ type: 'youtube', url: 'https://youtube.com/live/kb5H9B29sFA?feature=share', label: 'Tonton Video' }],
+          image: null 
         },
         {
           id: 5,
@@ -196,11 +243,10 @@
           role: "Produser",
           description: "Penanggungjawab program talkshow kelompok, penanggungjawab laporan talkshow, dan penanggungjawab persuratan program talkshow.",
           links: [
-            { type: 'spotify', url: 'https://open.spotify.com/episode/0zGbJeXvGaqH1Si2ocY0az?si=jmFUCQEJTuCgxGsgETpntw', label: 'Spotify Podcast' },
-            { type: 'youtube', url: 'https://www.youtube.com/live/Q20-hiNPVes?si=i0NmSNAwEiVrp6ZF', label: 'YouTube Video' },
-          
+            { type: 'spotify', url: 'https://open.spotify.com/episode/0zGbJeXvGaqH1Si2ocY0az?si=jmFUCQEJTuCgxGsgETpntw', label: 'Dengarkan Podcast' },
+            { type: 'youtube', url: 'https://www.youtube.com/live/Q20-hiNPVes?si=i0NmSNAwEiVrp6ZF', label: 'Tonton Video' } 
           ],
-          image: "./assets/images/project-5.jpg" // Spotify/YouTube mix, kita pakai gambar thumbnail Spotify (800x450px)
+          image: "./assets/images/project-5.jpg"
         },
         {
           id: 6,
@@ -208,7 +254,7 @@
           date: "Mar 2024 – Mei 2024",
           role: "Reporter & Presenter",
           description: "Mencari berita aktual dan faktual, mencari narasumber dialog news bulletin, serta menjadi pembawa acara news bulletin.",
-          links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Siaran' }],
+          links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Video' }],
           image: null
         },
         {
@@ -217,7 +263,7 @@
           date: "Jan 2024 – Mar 2024",
           role: "Reporter & Program Director",
           description: "Penanggungjawab treatment dan rundown program news bulletin, serta bertugas mencari berita aktual dan faktual.",
-          links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Siaran' }],
+          links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Video' }],
           image: null
         },
         {
@@ -226,8 +272,8 @@
           date: "2024",
           role: "Jurnalis Mobile",
           description: "Karya jurnalistik menggunakan perangkat mobile.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/10C2w6Vx_59uXNNITrAThp4rt6WWmCTim/view?usp=drive_link', label: 'Lihat Karya' }],
-          image: "./assets/images/project-8.jpg" // Target file gambar (800x450px)
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/10C2w6Vx_59uXNNITrAThp4rt6WWmCTim/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          image: "./assets/images/project-8.jpg"
         },
         {
           id: 9,
@@ -235,8 +281,8 @@
           date: "2024",
           role: "Reporter",
           description: "Liputan reportase untuk format radio visual.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1HPrY81jTvVHfnbJiiJ6F3rv-FooMbjvK/view?usp=drive_link', label: 'Lihat Reportase' }],
-          image: "./assets/images/project-9.jpg" // Target file gambar (800x450px)
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1HPrY81jTvVHfnbJiiJ6F3rv-FooMbjvK/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          image: "./assets/images/project-9.jpg"
         },
         {
           id: 10,
@@ -244,35 +290,46 @@
           date: "2024",
           role: "Reporter",
           description: "Liputan kegiatan event Jogja Fashion Carnaval.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1-GuDVXokXwm77L_SH_ZoRlP4zzmErlkJ/view?usp=drive_link', label: 'Lihat Liputan' }],
-          image: "./assets/images/project-10.jpg" // Target file gambar (800x450px)
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1-GuDVXokXwm77L_SH_ZoRlP4zzmErlkJ/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          image: "./assets/images/project-10.jpg" 
         }
       ];
 
+      // PERUBAHAN: Semua icon drive disamakan menjadi icon YouTube (Play)
       const getIcon = (type) => {
         switch(type) {
-          case 'youtube': return <IconYoutube />;
-          case 'drive': return <IconDrive />;
-          case 'spotify': return <IconSpotify />;
-          default: return <IconExternalLink />;
+          case 'youtube': 
+          case 'drive': 
+            return <IconYoutube />;
+          case 'spotify': 
+            return <IconSpotify />;
+          default: 
+            return <IconExternalLink />;
         }
       };
 
+      // PERUBAHAN: Semua tombol video diseragamkan warnanya (Merah)
       const getButtonColor = (type) => {
         switch(type) {
-          case 'youtube': return 'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20';
-          case 'drive': return 'bg-blue-500/10 text-blue-500 border-blue-500/20 hover:bg-blue-500/20';
-          case 'spotify': return 'bg-green-500/10 text-green-500 border-green-500/20 hover:bg-green-500/20';
-          default: return 'bg-slate-500/10 text-slate-700 border-slate-500/20 hover:bg-slate-500/20';
+          case 'youtube': 
+          case 'drive': 
+            return 'bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-600 hover:text-white';
+          case 'spotify': 
+            return 'bg-green-500/10 text-green-700 border-green-500/20 hover:bg-green-600 hover:text-white';
+          default: 
+            return 'bg-slate-500/10 text-slate-800 border-slate-500/20 hover:bg-slate-600 hover:text-white';
         }
       };
 
       const getButtonColorDark = (type) => {
         switch(type) {
-          case 'youtube': return 'bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-500/20';
-          case 'drive': return 'bg-blue-500/10 text-blue-400 border-blue-500/30 hover:bg-blue-500/20';
-          case 'spotify': return 'bg-green-500/10 text-green-400 border-green-500/30 hover:bg-green-500/20';
-          default: return 'bg-slate-700/50 text-slate-300 border-slate-600 hover:bg-slate-600/80';
+          case 'youtube': 
+          case 'drive': 
+            return 'bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-600 hover:text-white';
+          case 'spotify': 
+            return 'bg-green-500/10 text-green-400 border-green-500/30 hover:bg-green-600 hover:text-white';
+          default: 
+            return 'bg-slate-700/50 text-slate-300 border-slate-600 hover:bg-slate-600 hover:text-white';
         }
       };
 
@@ -282,50 +339,55 @@
         return (match && match[2].length === 11) ? match[2] : null;
       };
 
-      // Variable class pembantu untuk Liquid Glass
-      const glassClass = isDark ? 'glass-dark text-slate-100' : 'glass-light text-slate-800';
+      const glassClass = isDark ? 'glass-dark text-slate-100' : 'glass-light text-slate-900';
 
       return (
-        <div className={`min-h-screen font-sans relative transition-colors duration-700 ${isDark ? 'bg-slate-900' : 'bg-slate-50'}`}>
+        <div className={`min-h-screen font-sans relative transition-colors duration-700 ${isDark ? 'dark' : ''}`}>
           
-          {/* Tombol Toggle Theme Kaca */}
+          {/* Latar Belakang & Efek */}
+          <BackgroundVisuals isDark={isDark} />
+
+          {/* Tombol Toggle Kaca */}
           <div className="fixed top-6 right-6 z-50 animate-fade-in-up">
             <button
               onClick={() => setIsDark(!isDark)}
-              className={`p-3 rounded-full transition-all duration-300 hover:scale-110 flex items-center justify-center ${glassClass}`}
+              className={`p-3 rounded-full transition-all duration-300 hover:scale-110 flex items-center justify-center backdrop-blur-xl ${isDark ? 'bg-slate-800/80 border border-slate-600 shadow-lg' : 'bg-white/80 border border-white shadow-lg'}`}
               title={isDark ? "Aktifkan Light Mode" : "Aktifkan Dark Mode"}
             >
-              {isDark ? <span className="text-yellow-400"><IconSun /></span> : <span className="text-slate-600"><IconMoon /></span>}
+              {isDark ? <span className="text-yellow-400"><IconSun /></span> : <span className="text-indigo-600"><IconMoon /></span>}
             </button>
           </div>
 
-          <BackgroundParticles />
-
           <div className="relative z-10">
-            {/* Header / Hero Kaca */}
+            {/* Header / Hero */}
             <header className={`${glassClass} border-b-0`}>
               <div className="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-between animate-fade-in-up" style={{ opacity: 0 }}>
                 <div className="md:w-2/3 md:pr-10 text-center md:text-left">
-                  <h2 className={`text-sm font-bold uppercase tracking-wider mb-2 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>Portfolio</h2>
-                  <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight drop-shadow-sm">
+                  <h2 className={`text-sm font-bold uppercase tracking-wider mb-2 ${isDark ? 'text-indigo-300' : 'text-indigo-700'}`}>Portfolio</h2>
+                  
+                  {/* PERBAIKAN: Penegasan Warna Teks Header */}
+                  <h1 className={`text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-md ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     Febika Indriyani
                   </h1>
-                  <p className={`text-lg mb-6 leading-relaxed max-w-2xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                  
+                  <p className={`text-lg mb-6 leading-relaxed max-w-2xl font-medium ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                     Seorang profesional kreatif yang berpengalaman dalam produksi dokumenter, penyiaran televisi & radio, riset konten, serta mobile journalism. Berdedikasi untuk menyajikan informasi dan cerita yang berkualitas.
                   </p>
-                  <div className={`flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                    <span className="flex items-center bg-black/5 px-3 py-1 rounded-full"><span className="mr-1 opacity-70"><IconMapPin/></span> Indonesia</span>
+                  <div className={`flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-semibold ${isDark ? 'text-slate-300' : 'text-slate-800'}`}>
+                    <span className={`flex items-center px-4 py-2 rounded-full backdrop-blur-md ${isDark ? 'bg-black/20 border border-white/10' : 'bg-white/60 border border-white/80'}`}>
+                      <span className="mr-2 opacity-80"><IconMapPin/></span> Indonesia
+                    </span>
                   </div>
                   <div className="mt-8 mb-10 md:mb-0">
-                    <a href="#pengalaman" className="inline-flex items-center px-6 py-3 bg-indigo-600/90 backdrop-blur-md text-white font-medium rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/30 border border-indigo-400/30">
+                    <a href="#pengalaman" className="inline-flex items-center px-8 py-4 bg-indigo-600/90 backdrop-blur-md text-white font-bold rounded-2xl hover:bg-indigo-700 transition-all hover:scale-105 shadow-[0_0_20px_rgba(79,70,229,0.4)] border border-indigo-400/30">
                       Lihat Karya Saya
-                      <span className="ml-2"><IconChevronDown/></span>
+                      <span className="ml-2 animate-bounce"><IconChevronDown/></span>
                     </a>
                   </div>
                 </div>
 
                 <div className="md:w-1/3 mt-12 md:mt-0 flex justify-center">
-                  <div className={`relative w-64 h-64 md:w-80 md:h-80 rounded-full shadow-[0_0_40px_rgba(79,70,229,0.3)] overflow-hidden transition-colors duration-500 border-4 ${isDark ? 'border-white/10' : 'border-white/50'}`}>
+                  <div className={`relative w-64 h-64 md:w-80 md:h-80 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.2)] overflow-hidden transition-all duration-500 border-4 hover:scale-105 ${isDark ? 'border-indigo-500/30' : 'border-white'}`}>
                     {/* FOTO PROFIL */}
                     <img 
                       src="./assets/images/profile.png" 
@@ -342,9 +404,10 @@
             </header>
 
             <main id="pengalaman" className="max-w-6xl mx-auto px-6 py-20">
-              <div className="mb-12 text-center md:text-left">
-                <h2 className={`text-3xl font-bold mb-4 animate-fade-in-up drop-shadow-sm ${isDark ? 'text-white' : 'text-slate-900'}`} style={{ opacity: 0, animationDelay: '200ms' }}>Pengalaman & Portofolio</h2>
-                <div className="h-1 w-20 bg-indigo-500/80 mx-auto md:mx-0 rounded animate-fade-in-up" style={{ opacity: 0, animationDelay: '300ms' }}></div>
+              <div className="mb-14 text-center md:text-left">
+                {/* PERBAIKAN: Penegasan Warna Teks Sub-Header */}
+                <h2 className={`text-4xl font-extrabold mb-4 animate-fade-in-up drop-shadow-md ${isDark ? 'text-white' : 'text-slate-900'}`} style={{ opacity: 0, animationDelay: '200ms' }}>Pengalaman & Portofolio</h2>
+                <div className="h-1.5 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto md:mx-0 rounded-full animate-fade-in-up" style={{ opacity: 0, animationDelay: '300ms' }}></div>
               </div>
 
               {/* Grid Karya */}
@@ -352,26 +415,27 @@
                 {projects.map((project, index) => (
                   <div 
                     key={project.id} 
-                    className={`rounded-3xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col h-full animate-fade-in-up ${glassClass}`}
+                    className={`rounded-3xl transition-all duration-300 overflow-hidden flex flex-col h-full animate-fade-in-up glass-hover-effect ${glassClass}`}
                     style={{ opacity: 0, animationDelay: `${400 + (index * 100)}ms` }}
                   >
                     <div className="p-6 flex-grow">
-                      <div className="flex justify-between items-start mb-4">
-                        <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full border ${isDark ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' : 'bg-indigo-600/10 text-indigo-700 border-indigo-600/20'}`}>
+                      <div className="flex justify-between items-start mb-5">
+                        <span className={`inline-block px-4 py-1.5 text-xs font-bold rounded-full border shadow-sm backdrop-blur-md ${isDark ? 'bg-indigo-500/20 text-indigo-300 border-indigo-400/30' : 'bg-white/80 text-indigo-800 border-white'}`}>
                           {project.role}
                         </span>
-                        <span className={`text-xs font-medium px-2 py-1 rounded border ${isDark ? 'bg-slate-800/50 text-slate-300 border-slate-600/50' : 'bg-white/50 text-slate-600 border-white/60'}`}>
+                        <span className={`text-xs font-bold px-3 py-1.5 rounded-full border shadow-sm backdrop-blur-md ${isDark ? 'bg-slate-800/50 text-slate-200 border-slate-600/50' : 'bg-white/80 text-slate-800 border-white'}`}>
                           {project.date}
                         </span>
                       </div>
                       
-                      <h3 className={`text-xl font-bold mb-3 leading-snug drop-shadow-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      {/* PERBAIKAN: Penegasan Warna Teks Judul Karya */}
+                      <h3 className={`text-xl font-bold mb-4 leading-snug drop-shadow-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                         {project.title}
                       </h3>
                       
                       {/* Media YouTube atau Gambar */}
                       {project.links.some(link => link.type === 'youtube') ? (
-                        <div className="relative w-full aspect-video mb-4 rounded-xl overflow-hidden shadow-inner bg-slate-900 border border-slate-700/50">
+                        <div className="relative w-full aspect-video mb-5 rounded-2xl overflow-hidden shadow-lg bg-slate-900 border border-slate-700/50">
                           <iframe
                             src={`https://www.youtube.com/embed/${getYouTubeId(project.links.find(l => l.type === 'youtube').url)}`}
                             title={`Preview ${project.title}`}
@@ -382,29 +446,29 @@
                           ></iframe>
                         </div>
                       ) : (
-                        <div className={`relative w-full aspect-video mb-4 rounded-xl overflow-hidden shadow-inner border group ${isDark ? 'bg-slate-800/50 border-slate-600/50' : 'bg-white/50 border-white/60'}`}>
-                          {/* GAMBAR THUMBNAIL KARYA LOKAL */}
+                        <div className={`relative w-full aspect-video mb-5 rounded-2xl overflow-hidden shadow-lg border group ${isDark ? 'bg-slate-800/50 border-slate-600/50' : 'bg-white/50 border-white/60'}`}>
                           <img
                             src={project.image}
                             alt={`Preview ${project.title}`}
-                            className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                             onError={(e) => {
                                 e.target.onerror = null; 
                                 e.target.src=`https://via.placeholder.com/800x450.png?text=assets/images/project-${project.id}.jpg+Belum+Ada`
                             }}
                           />
-                          <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300 pointer-events-none"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                         </div>
                       )}
                       
-                      <p className={`text-sm mb-6 leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                      {/* PERBAIKAN: Penegasan Warna Teks Deskripsi */}
+                      <p className={`text-sm mb-6 leading-relaxed font-medium ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                         {project.description}
                       </p>
                     </div>
                     
-                    {/* Card Footer Kaca */}
-                    <div className={`p-6 pt-0 mt-auto border-t ${isDark ? 'border-white/10' : 'border-black/5'}`}>
-                      <p className={`text-xs font-semibold mb-3 uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Tautan Lampiran:</p>
+                    {/* Card Footer */}
+                    <div className={`p-6 pt-0 mt-auto border-t ${isDark ? 'border-white/10' : 'border-slate-800/10'}`}>
+                      <p className={`text-xs font-bold mb-3 uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Tautan Lampiran:</p>
                       <div className="flex flex-wrap gap-2">
                         {project.links.map((link, idx) => (
                           <a 
@@ -412,7 +476,7 @@
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex items-center px-3 py-2 border rounded-xl text-sm font-medium transition-colors ${
+                            className={`inline-flex items-center px-4 py-2 border rounded-xl text-sm font-bold transition-all shadow-sm backdrop-blur-md ${
                               isDark ? getButtonColorDark(link.type) : getButtonColor(link.type)
                             }`}
                           >
@@ -427,27 +491,27 @@
               </div>
             </main>
 
-            {/* Footer Kaca */}
+            {/* Footer */}
             <footer className={`${glassClass} border-t border-b-0 rounded-t-[3rem] mt-10`}>
               <div className="max-w-6xl mx-auto px-6 py-12 text-center animate-fade-in-up" style={{ opacity: 0, animationDelay: '600ms' }}>
-                <h2 className={`text-2xl font-bold tracking-tight mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>Febika Indriyani</h2>
-                <p className={`text-sm mb-8 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Producer • Reporter • Creative content creator</p>
+                <h2 className={`text-3xl font-extrabold tracking-tight mb-2 drop-shadow-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>Febika Indriyani</h2>
+                <p className={`text-sm font-medium mb-8 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Producer • Reporter • Creative content creator</p>
                 
                 <div className="flex justify-center gap-6 mb-8">
-                  <a href="https://linkedin.com/in/febika-indriyani-6bb96133a" target="_blank" rel="noopener noreferrer" className={`p-3 rounded-full transition-all duration-300 shadow-lg hover:-translate-y-1 ${isDark ? 'bg-slate-800 text-white hover:bg-indigo-500' : 'bg-white text-slate-700 hover:bg-indigo-600 hover:text-white border border-slate-200'}`} title="LinkedIn">
+                  <a href="https://linkedin.com/in/febika-indriyani-6bb96133a" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-2xl transition-all duration-300 shadow-lg hover:-translate-y-2 backdrop-blur-md ${isDark ? 'bg-slate-800/80 text-white hover:bg-indigo-500 border border-white/10' : 'bg-white/80 text-slate-800 hover:bg-indigo-600 hover:text-white border border-white'}`} title="LinkedIn">
                     <IconLinkedin />
                   </a>
-                  <a href="mailto:febikaindriyaniii@gmail.com" className={`p-3 rounded-full transition-all duration-300 shadow-lg hover:-translate-y-1 ${isDark ? 'bg-slate-800 text-white hover:bg-indigo-500' : 'bg-white text-slate-700 hover:bg-indigo-600 hover:text-white border border-slate-200'}`} title="Email">
+                  <a href="mailto:febikaindriyaniii@gmail.com" className={`p-4 rounded-2xl transition-all duration-300 shadow-lg hover:-translate-y-2 backdrop-blur-md ${isDark ? 'bg-slate-800/80 text-white hover:bg-indigo-500 border border-white/10' : 'bg-white/80 text-slate-800 hover:bg-indigo-600 hover:text-white border border-white'}`} title="Email">
                     <IconMail />
                   </a>
-                  <a href="https://wa.me/6283839534496" target="_blank" rel="noopener noreferrer" className={`p-3 rounded-full transition-all duration-300 shadow-lg hover:-translate-y-1 ${isDark ? 'bg-slate-800 text-white hover:bg-indigo-500' : 'bg-white text-slate-700 hover:bg-indigo-600 hover:text-white border border-slate-200'}`} title="WhatsApp">
+                  <a href="https://wa.me/6283839534496" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-2xl transition-all duration-300 shadow-lg hover:-translate-y-2 backdrop-blur-md ${isDark ? 'bg-slate-800/80 text-white hover:bg-indigo-500 border border-white/10' : 'bg-white/80 text-slate-800 hover:bg-indigo-600 hover:text-white border border-white'}`} title="WhatsApp">
                     <IconPhone />
                   </a>
                 </div>
 
-                <div className={`h-px w-24 mx-auto mb-8 ${isDark ? 'bg-white/10' : 'bg-black/10'}`}></div>
+                <div className={`h-1.5 w-24 rounded-full mx-auto mb-8 ${isDark ? 'bg-white/20' : 'bg-slate-800/20'}`}></div>
                 
-                <p className={`text-sm ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
+                <p className={`text-sm font-semibold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                   © {new Date().getFullYear()} Febika Indriyani. All rights reserved.
                 </p>
               </div>
@@ -457,7 +521,6 @@
       );
     };
 
-    // Render App ke dalam div id="root"
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<Portfolio />);
   </script>
