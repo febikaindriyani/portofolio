@@ -38,31 +38,40 @@
     .animation-delay-2000 { animation-delay: 2s; }
     .animation-delay-4000 { animation-delay: 4s; }
 
-    /* --- EFEK LIQUID GLASS (KACA) YANG DISEMPURNAKAN KONTRASTNYA --- */
+    /* --- SETTING EFEK LIQUID GLASS (KACA) --- */
+    /* Anda bisa mengubah nilai blur dan transparansi (opacity) di sini */
+    :root {
+      --glass-blur: 16px; /* Semakin besar angkanya, semakin ngeblur latar belakangnya */
+      --glass-opacity-dark: 0.35; /* Transparansi mode malam (0.0 sangat bening, 1.0 sangat pekat) */
+      --glass-opacity-light: 0.35; /* PERBAIKAN: Disamakan menjadi 0.35 agar mode siang juga transparan */
+    }
+
     .glass-light {
-      background: rgba(255, 255, 255, 0.75); /* Dipertebal agar teks gelap terbaca jelas */
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, var(--glass-opacity-light));
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
       border: 1px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.15); /* Bayangan lembut */
+      box-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.15);
     }
     
     .glass-dark {
-      background: rgba(15, 23, 42, 0.80); /* Dipertebal agar teks putih lebih kontras */
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(15, 23, 42, var(--glass-opacity-dark));
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
       border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Bayangan tegas */
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     }
 
     /* Efek hover kaca mengkilap */
+    .glass-hover-effect {
+      transition: all 0.3s ease;
+    }
     .glass-hover-effect:hover {
-      background: rgba(255, 255, 255, 0.90);
-      border: 1px solid rgba(255, 255, 255, 1);
       transform: translateY(-5px);
+      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
     }
     .dark .glass-hover-effect:hover {
-      background: rgba(30, 41, 59, 0.95);
+      background: rgba(30, 41, 59, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
   </style>
@@ -96,9 +105,9 @@
     const IconMoon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>;
     const IconMapPin = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
     const IconChevronDown = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"></path></svg>;
-    const IconYoutube = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M2.5 7.1C2.6 5.3 4 3.9 5.8 3.8 9.9 3.5 14.1 3.5 18.2 3.8 20 3.9 21.4 5.3 21.5 7.1 21.8 10.4 21.8 13.6 21.5 16.9 21.4 18.7 20 20.1 18.2 20.2 14.1 20.5 9.9 20.5 5.8 20.2 4 20.1 2.6 18.7 2.5 16.9 2.2 13.6 2.2 10.4 2.5 7.1Z"></path><path d="m10 15 5-3-5-3v6Z"></path></svg>;
-    const IconDrive = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>;
-    const IconSpotify = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><circle cx="12" cy="12" r="10"></circle><path d="M8 11.85c.8-.4 1.9-.6 3.1-.6s2.3.2 3.1.6"></path><path d="M7 15.35c1-.5 2.4-.8 3.8-.8s2.8.3 3.8.8"></path><path d="M9 8.35c.6-.3 1.4-.5 2.2-.5s1.6.2 2.2.5"></path></svg>;
+    const IconYoutube = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 shrink-0"><path d="M2.5 7.1C2.6 5.3 4 3.9 5.8 3.8 9.9 3.5 14.1 3.5 18.2 3.8 20 3.9 21.4 5.3 21.5 7.1 21.8 10.4 21.8 13.6 21.5 16.9 21.4 18.7 20 20.1 18.2 20.2 14.1 20.5 9.9 20.5 5.8 20.2 4 20.1 2.6 18.7 2.5 16.9 2.2 13.6 2.2 10.4 2.5 7.1Z"></path><path d="m10 15 5-3-5-3v6Z"></path></svg>;
+    const IconDrive = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 shrink-0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>;
+    const IconSpotify = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="M8 11.85c.8-.4 1.9-.6 3.1-.6s2.3.2 3.1.6"></path><path d="M7 15.35c1-.5 2.4-.8 3.8-.8s2.8.3 3.8.8"></path><path d="M9 8.35c.6-.3 1.4-.5 2.2-.5s1.6.2 2.2.5"></path></svg>;
     const IconLinkedin = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
     const IconMail = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
     const IconPhone = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>;
@@ -158,18 +167,15 @@
       }, [isDark]);
 
       return (
-        // PERBAIKAN: Latar belakang utama (container) akan berubah putih di Day Mode
         <div className={`fixed inset-0 z-0 overflow-hidden transition-colors duration-700 ${isDark ? 'bg-slate-950' : 'bg-slate-50'}`}>
           
-          {/* Gambar Latar Belakang (Syuting/Kamera) */}
+          {/* Gambar Latar Belakang */}
           <img 
             src="./assets/images/background.jpg" 
             alt="Background" 
-            // PERBAIKAN: Di mode siang, opacity gambar dikurangi tajam agar tidak mengganggu tulisan
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isDark ? 'opacity-30' : 'opacity-10'}`}
             onError={(e) => {
               e.target.onerror = null;
-              // Placeholder gambar syuting film jika lokal tidak ada
               e.target.src = "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1920&auto=format&fit=crop"; 
             }}
           />
@@ -187,7 +193,7 @@
 
     // --- KOMPONEN UTAMA (PORTFOLIO) ---
     const Portfolio = () => {
-      // PERUBAHAN: Default mode disetel ke true (Mode Malam/Dark Mode)
+      // Default mode disetel ke true (Mode Malam/Dark Mode)
       const [isDark, setIsDark] = useState(true);
 
       // --- DATA PORTOFOLIO ---
@@ -197,8 +203,8 @@
           title: "Produser TA Dokumenter Kronika Ampo Imogiri Dalam Simpang Rasa & Warisan",
           date: "Sep – Okt 2025",
           role: "Produser",
-          description: "Membuat schedule shooting dari pra hingga post produksi, mengembangkan ide hingga menjadi treatment, membuat anggaran produksi.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1BpIWJLaIlKZrzag7vMLstPSd_WyIDA54/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          description: "Bertanggung jawab sebagai Produser dalam produksi dokumenter, mulai dari pengembangan ide hingga eksekusi produksi. Mengelola perencanaan produksi, termasuk penyusunan jadwal shooting, pengembangan konsep menjadi treatment, serta penyusunan anggaran produksi. Memastikan alur produksi berjalan efektif dan sesuai dengan visi kreatif yang telah ditetapkan.",
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1BpIWJLaIlKZrzag7vMLstPSd_WyIDA54/view?usp=drive_link', label: 'Tonton Video' }],
           image: "./assets/images/project-1.jpg"
         },
         {
@@ -206,7 +212,7 @@
           title: "Video Dokumenter SMA IT Abu Bakar Jogja",
           date: "Mei 2025",
           role: "Tim Riset",
-          description: "Mencari informasi tentang SMA IT Abu Bakar untuk konsep dokumenter, menyusun pertanyaan untuk narasumber.",
+          description: "Melakukan riset mendalam terkait topik dan objek dokumenter sebagai dasar pengembangan konsep. Mengumpulkan dan mengolah informasi untuk mendukung alur cerita yang informatif dan terstruktur. Menyusun daftar pertanyaan untuk narasumber guna menggali informasi yang relevan dan bernilai.",
           links: [{ type: 'youtube', url: 'https://youtu.be/pWdZiWP96RA?si=8Ahhx4HbbsopdxK4', label: 'Tonton Video' }],
           image: null
         },
@@ -215,7 +221,7 @@
           title: "Magang BPSDMP Kominfo Surabaya",
           date: "Jan – Feb 2025",
           role: "Divisi Publikasi",
-          description: "Membuat caption, membuat kalimat pendek untuk video, menjadi voice over.",
+          description: "Bertanggung jawab dalam pembuatan konten publikasi digital, termasuk penulisan caption dan copywriting untuk kebutuhan media sosial dan video. Menyusun naskah singkat (script) untuk konten video serta berperan sebagai voice over dalam produksi konten. Berkontribusi dalam penyampaian informasi yang jelas, menarik, dan sesuai dengan kebutuhan komunikasi instansi.",
           links: [
             { type: 'drive', url: 'https://drive.google.com/file/d/1lVfTk2HNet_ehnWB_558VcM5sGMZmr_m/view?usp=drive_link', label: 'Tonton Video 1' },
             { type: 'drive', url: 'https://drive.google.com/file/d/1pkRNXOpmN_aO-n4RhVKytRz_J3aUNZKq/view?usp=drive_link', label: 'Tonton Video 2' },
@@ -224,24 +230,24 @@
             { type: 'drive', url: 'https://drive.google.com/file/d/1G5OjADOyu3ukwIRwXRuUXXKcPwtR3i46/view?usp=drive_link', label: 'Tonton Video 5' },
             { type: 'drive', url: 'https://drive.google.com/file/d/1cOgJLnqJqPPDXJekmRJY7zcBxKSGDLWS/view?usp=drive_link', label: 'Tonton Video 6' },
             { type: 'drive', url: 'https://drive.google.com/file/d/1ajIrhO5m5DDKEFTsFc1WP2Zkcgn5ceL8/view?usp=drive_link', label: 'Tonton Video 7' },
-          ], // Label diseragamkan
+          ],
           image: "./assets/images/project-3.jpg"
         },
         {
           id: 4,
           title: "Talkshow TV",
-          date: "Sep 2024 – Okt 2024",
+          date: "Sep – Okt 2024",
           role: "Crew Creative",
-          description: "Bertanggungjawab seluruh properti serta konten yang diperlukan selama produksi talkshow.",
+          description: "Bertanggung jawab dalam menyiapkan kebutuhan produksi talkshow, termasuk pengelolaan properti dan materi konten. Mendukung kelancaran proses produksi melalui koordinasi dengan tim dan memastikan seluruh kebutuhan teknis serta kreatif terpenuhi.",
           links: [{ type: 'youtube', url: 'https://youtube.com/live/kb5H9B29sFA?feature=share', label: 'Tonton Video' }],
           image: null 
         },
         {
           id: 5,
           title: "Talkshow Radio Visual",
-          date: "Jul 2024 – Agus 2024",
+          date: "Jul – Agus 2024",
           role: "Produser",
-          description: "Penanggungjawab program talkshow kelompok, penanggungjawab laporan talkshow, dan penanggungjawab persuratan program talkshow.",
+          description: "Memimpin dan mengelola program talkshow, mulai dari perencanaan hingga pelaksanaan produksi. Bertanggung jawab dalam penyusunan laporan program serta administrasi dan persuratan yang berkaitan dengan kegiatan produksi. Mengkoordinasikan tim untuk memastikan jalannya program sesuai dengan konsep dan target yang ditetapkan.",
           links: [
             { type: 'spotify', url: 'https://open.spotify.com/episode/0zGbJeXvGaqH1Si2ocY0az?si=jmFUCQEJTuCgxGsgETpntw', label: 'Dengarkan Podcast' },
             { type: 'youtube', url: 'https://www.youtube.com/live/Q20-hiNPVes?si=i0NmSNAwEiVrp6ZF', label: 'Tonton Video' } 
@@ -251,18 +257,18 @@
         {
           id: 6,
           title: "News Bulletin TV",
-          date: "Mar 2024 – Mei 2024",
-          role: "Reporter & Presenter",
-          description: "Mencari berita aktual dan faktual, mencari narasumber dialog news bulletin, serta menjadi pembawa acara news bulletin.",
+          date: "Mar – Mei 2024",
+          role: "News Anchor & Reporter",
+          description: "Riset berita aktual dan melakukan wawancara narasumber secara profesional. Membawakan program siaran langsung dengan artikulasi yang jelas dan pembawaan yang engaging.",
           links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Video' }],
           image: null
         },
         {
           id: 7,
           title: "News Bulletin Radio Visual",
-          date: "Jan 2024 – Mar 2024",
-          role: "Reporter & Program Director",
-          description: "Penanggungjawab treatment dan rundown program news bulletin, serta bertugas mencari berita aktual dan faktual.",
+          date: "Jan – Mar 2024",
+          role: "Program Director & Reporter",
+          description: "Bertanggung jawab penuh atas penyusunan rundown dan alur program siaran. Melakukan reportase dengan kemampuan adaptasi dan situasi yang cepat.",
           links: [{ type: 'youtube', url: 'https://www.youtube.com/live/eh9ze_jp-8U?si=M5jUZvk7gqLV9UnR', label: 'Tonton Video' }],
           image: null
         },
@@ -270,9 +276,9 @@
           id: 8,
           title: "Mobile Journalism",
           date: "2024",
-          role: "Jurnalis Mobile",
-          description: "Karya jurnalistik menggunakan perangkat mobile.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/10C2w6Vx_59uXNNITrAThp4rt6WWmCTim/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          role: "Reporter Mobile Jurnalism",
+          description: "Memproduksi dan menyiarkan laporan berita secara real-time melalui perangkat mobile.",
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/10C2w6Vx_59uXNNITrAThp4rt6WWmCTim/view?usp=drive_link', label: 'Tonton Video' }],
           image: "./assets/images/project-8.jpg"
         },
         {
@@ -280,22 +286,31 @@
           title: "Reportase Radio Visual",
           date: "2024",
           role: "Reporter",
-          description: "Liputan reportase untuk format radio visual.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1HPrY81jTvVHfnbJiiJ6F3rv-FooMbjvK/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          description: "Bertanggung jawab atas pelaporan berita langsung di lokasi dengan penguasaan penuh pada mobile content production dan visual editing.",
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1HPrY81jTvVHfnbJiiJ6F3rv-FooMbjvK/view?usp=drive_link', label: 'Tonton Video' }],
           image: "./assets/images/project-9.jpg"
         },
         {
           id: 10,
           title: "Reportase Jogja Fashion Carnaval",
-          date: "2024",
+          date: "2023",
           role: "Reporter",
-          description: "Liputan kegiatan event Jogja Fashion Carnaval.",
-          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1-GuDVXokXwm77L_SH_ZoRlP4zzmErlkJ/view?usp=drive_link', label: 'Tonton Video' }], // Label diganti
+          description: "Menyajikan liputan visual mengenai eksibisi busana yang menarik dengan narasi yang dinamis bagi audiens.",
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1-GuDVXokXwm77L_SH_ZoRlP4zzmErlkJ/view?usp=drive_link', label: 'Tonton Video' }],
           image: "./assets/images/project-10.jpg" 
+        },
+        {
+          id: 11,
+          title: "Program Feature Teknologi “In Tech”",
+          date: "Okt 2023",
+          role: "Produser",
+          description: "Mengelola produksi program feature teknologi “In Tech” dari perencanaan hingga eksekusi, termasuk penyusunan jadwal, pengembangan konsep menjadi treatment dan naskah, pengelolaan anggaran, serta koordinasi dengan narasumber.",
+          links: [{ type: 'drive', url: 'https://drive.google.com/file/d/1s0hD1uCxonL0qLN9UndDfrnxlnjZltQI/view?usp=drivesdk', label: 'Tonton Video' }],
+          image: "./assets/images/project-11.png" 
         }
       ];
 
-      // PERUBAHAN: Semua icon drive disamakan menjadi icon YouTube (Play)
+      // Semua icon drive disamakan menjadi icon YouTube (Play)
       const getIcon = (type) => {
         switch(type) {
           case 'youtube': 
@@ -308,7 +323,7 @@
         }
       };
 
-      // PERUBAHAN: Semua tombol video diseragamkan warnanya (Merah)
+      // Semua tombol video diseragamkan warnanya (Merah)
       const getButtonColor = (type) => {
         switch(type) {
           case 'youtube': 
@@ -365,13 +380,12 @@
                 <div className="md:w-2/3 md:pr-10 text-center md:text-left">
                   <h2 className={`text-sm font-bold uppercase tracking-wider mb-2 ${isDark ? 'text-indigo-300' : 'text-indigo-700'}`}>Portfolio</h2>
                   
-                  {/* PERBAIKAN: Penegasan Warna Teks Header */}
                   <h1 className={`text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-md ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     Febika Indriyani
                   </h1>
                   
                   <p className={`text-lg mb-6 leading-relaxed max-w-2xl font-medium ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
-                    Seorang profesional kreatif yang berpengalaman dalam produksi dokumenter, penyiaran televisi & radio, riset konten, serta mobile journalism. Berdedikasi untuk menyajikan informasi dan cerita yang berkualitas.
+                    Lulusan Sarjana Terapan Ilmu Komunikasi dari Sekolah Tinggi Multi Media Yogyakarta dengan pengalaman dalam produksi konten, penyiaran televisi & radio, serta riset konten. Terbiasa mengelola proses produksi dari pra hingga pasca-produksi. Adaptif, komunikatif, dan memiliki ketertarikan berkarier di bidang media, kreatif, maupun komunikasi.
                   </p>
                   <div className={`flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-semibold ${isDark ? 'text-slate-300' : 'text-slate-800'}`}>
                     <span className={`flex items-center px-4 py-2 rounded-full backdrop-blur-md ${isDark ? 'bg-black/20 border border-white/10' : 'bg-white/60 border border-white/80'}`}>
@@ -387,7 +401,7 @@
                 </div>
 
                 <div className="md:w-1/3 mt-12 md:mt-0 flex justify-center">
-                  <div className={`relative w-64 h-64 md:w-80 md:h-80 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.2)] overflow-hidden transition-all duration-500 border-4 hover:scale-105 ${isDark ? 'border-indigo-500/30' : 'border-white'}`}>
+                  <div className={`relative w-64 h-64 md:w-80 md:h-80 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.1)] overflow-hidden transition-all duration-500 border-4 hover:scale-105 ${isDark ? 'border-indigo-500/30' : 'border-white'}`}>
                     {/* FOTO PROFIL */}
                     <img 
                       src="./assets/images/profile.png" 
@@ -405,7 +419,6 @@
 
             <main id="pengalaman" className="max-w-6xl mx-auto px-6 py-20">
               <div className="mb-14 text-center md:text-left">
-                {/* PERBAIKAN: Penegasan Warna Teks Sub-Header */}
                 <h2 className={`text-4xl font-extrabold mb-4 animate-fade-in-up drop-shadow-md ${isDark ? 'text-white' : 'text-slate-900'}`} style={{ opacity: 0, animationDelay: '200ms' }}>Pengalaman & Portofolio</h2>
                 <div className="h-1.5 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto md:mx-0 rounded-full animate-fade-in-up" style={{ opacity: 0, animationDelay: '300ms' }}></div>
               </div>
@@ -415,7 +428,7 @@
                 {projects.map((project, index) => (
                   <div 
                     key={project.id} 
-                    className={`rounded-3xl transition-all duration-300 overflow-hidden flex flex-col h-full animate-fade-in-up glass-hover-effect ${glassClass}`}
+                    className={`rounded-[22px] flex flex-col overflow-hidden h-full animate-fade-in-up glass-hover-effect shadow-lg ${glassClass}`}
                     style={{ opacity: 0, animationDelay: `${400 + (index * 100)}ms` }}
                   >
                     <div className="p-6 flex-grow">
@@ -428,7 +441,6 @@
                         </span>
                       </div>
                       
-                      {/* PERBAIKAN: Penegasan Warna Teks Judul Karya */}
                       <h3 className={`text-xl font-bold mb-4 leading-snug drop-shadow-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                         {project.title}
                       </h3>
@@ -460,7 +472,6 @@
                         </div>
                       )}
                       
-                      {/* PERBAIKAN: Penegasan Warna Teks Deskripsi */}
                       <p className={`text-sm mb-6 leading-relaxed font-medium ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                         {project.description}
                       </p>
@@ -469,22 +480,25 @@
                     {/* Card Footer */}
                     <div className={`p-6 pt-0 mt-auto border-t ${isDark ? 'border-white/10' : 'border-slate-800/10'}`}>
                       <p className={`text-xs font-bold mb-3 uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Tautan Lampiran:</p>
-                      <div className="flex flex-wrap gap-2">
+                      
+                      {/* PERBAIKAN: Menggunakan Grid 2 kolom agar tombol memanjang ke samping (kiri-kanan) */}
+                      <div className={`grid gap-2 ${project.links.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                         {project.links.map((link, idx) => (
                           <a 
                             key={idx}
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex items-center px-4 py-2 border rounded-xl text-sm font-bold transition-all shadow-sm backdrop-blur-md ${
+                            className={`flex items-center justify-center px-3 py-2 border rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm backdrop-blur-md text-center ${
                               isDark ? getButtonColorDark(link.type) : getButtonColor(link.type)
                             }`}
                           >
                             {getIcon(link.type)}
-                            {link.label}
+                            <span className="truncate">{link.label}</span>
                           </a>
                         ))}
                       </div>
+
                     </div>
                   </div>
                 ))}
